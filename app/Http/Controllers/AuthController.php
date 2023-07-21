@@ -75,8 +75,9 @@ class AuthController extends Controller
 
         // Debug statement
         // echo "Token: $token";
+        $user = User::where('email', request('email'))->first();
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token, $user->role);
     }
 
     /**
@@ -118,7 +119,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, $role)
     {
         $expirationTime = auth()->factory()->getTTL() * 60;
         $expiresInTimestamp = time() + $expirationTime;
@@ -127,9 +128,10 @@ class AuthController extends Controller
         $dateTime = new DateTime('@' . $expiresInTimestamp);
         $dateTime->setTimezone($dateTimeZone);
         $expiresIn = $dateTime->format('Y-m-d H:i:s');
-    
+        
         return response()->json([
             'access_token' => $token,
+            'role' => $role,
             'token_type' => 'bearer',
             'expires_in' => $expiresIn
         ]);
