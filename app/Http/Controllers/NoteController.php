@@ -56,6 +56,17 @@ class NoteController extends Controller
         return response()->json($response);
     }
 
+    public function listNoteByUser($id)
+    {
+        // $data = PengajuanSurat::where('user_id', $id)->with('surat')->get();
+
+        $data = $this->noteService->listNoteByUser($id);
+        return response()->json([
+            'message' => 'success',
+            'data' => $data
+        ]);
+    }
+
     public function createNote(Request $request)
     {
         $rules = [
@@ -67,6 +78,7 @@ class NoteController extends Controller
             'no_truck' => 'required',
             'driver' => 'required',
             'telp' => 'required',
+            'user_id' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -88,6 +100,7 @@ class NoteController extends Controller
             'no_truck' => $request->input('no_truck'),
             'driver' => $request->input('driver'),
             'telp' => $request->input('telp'),
+            'user_id' => $request->input('user_id'),
         ];
 
         $dataResponse = $this->noteService->createNote($dataRequest);

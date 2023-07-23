@@ -20,6 +20,7 @@ class Note extends Model
         'no_truck',
         'driver',
         'telp',
+        'user_id'
     ];
 
     // Relationships
@@ -31,5 +32,9 @@ class Note extends Model
     public function tumpukans()
     {
         return $this->hasMany(Tumpukan::class, 'id_note');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

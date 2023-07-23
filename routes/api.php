@@ -33,6 +33,7 @@ Route::group([
         Route::delete('barang/{id}', [BarangController::class, 'deleteBarang']);
         
         // Routes for NoteController
+        Route::get('notes-user/{id}', [NoteController::class, 'listNoteByUser']);
         Route::get('notes', [NoteController::class, 'listNotes']);
         Route::get('notes/{id}', [NoteController::class, 'getNoteById']);
         Route::post('notes', [NoteController::class, 'createNote']);
@@ -54,5 +55,4 @@ Route::group([
       
     });
   });
-
 

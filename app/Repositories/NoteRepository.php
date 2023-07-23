@@ -21,6 +21,11 @@ class NoteRepository
         return $this->note->find($id);
     }
 
+    public function listNoteByUser($id)
+    {
+        return $this->note->where('user_id', $id)->get();
+    }
+
     public function createNote($dataRequest)
     {
         return $this->note->create($dataRequest);

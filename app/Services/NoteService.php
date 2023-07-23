@@ -21,6 +21,11 @@ class NoteService
         return $this->noteRepository->getNoteById($id);
     }
 
+    public function listNoteByUser($id)
+    {
+        return $this->noteRepository->listNoteByUser($id);
+    }
+
     public function createNote($dataRequest)
     {
         return $this->noteRepository->createNote($dataRequest);
