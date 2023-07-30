@@ -167,6 +167,6 @@ class BarangController extends Controller
             ];
         }
 
-        return response()->json($response)->header('Access-Control-Allow-Origin', 'http://localhost:5173');
+        return response()->json($response);
     }
 }

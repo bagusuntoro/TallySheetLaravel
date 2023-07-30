@@ -15,6 +15,15 @@ class NoteController extends Controller
         $this->noteService = $noteService;
     }
 
+    public function detailNote($id)
+    {
+        $data = $this->noteService->detailNote($id);
+        return response()->json([
+            'message' => 'success',
+            'data' => $data
+        ]);
+    }
+
     public function listNotes()
     {
         $response = [

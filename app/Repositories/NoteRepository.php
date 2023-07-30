@@ -11,6 +11,11 @@ class NoteRepository
         $this->note = $note ;
     }
 
+    public function detailNote($id)
+    {
+        return $this->note->where('id', $id)->with('signatures')->get();
+    }
+
     public function listNotes()
     {
         return $this->note->get();

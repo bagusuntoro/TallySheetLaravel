@@ -11,6 +11,11 @@ class NoteService
         $this->noteRepository = $noteRepository;
     }
 
+    public function detailNote($id)
+    {
+        return $this->noteRepository->detailNote($id);
+    }
+
     public function listNotes()
     {
         return $this->noteRepository->listNotes();

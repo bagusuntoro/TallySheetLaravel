@@ -16,7 +16,8 @@ class Barang extends Model
     ];
 
     public function tumpukans()
-    {
-        return $this->hasMany(Tumpukan::class, 'id_barang');
-    }
+{
+    return $this->hasMany(Tumpukan::class, 'id_barang')->onDelete('cascade');
+}
+
 }
