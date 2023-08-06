@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'nik' => '1',
             'telp' => '1',
             'role' => 'admin',
+            'alamat' => 'pusat',
             'email' => 'admin@test.com',
             'password' => Hash::make('12345'),
         ]);

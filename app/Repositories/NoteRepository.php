@@ -13,7 +13,7 @@ class NoteRepository
 
     public function detailNote($id)
     {
-        return $this->note->where('id', $id)->with('signatures')->get();
+        return $this->note->where('id', $id)->with('signatures', 'tumpukans.barang')->get();
     }
 
     public function listNotes()
@@ -36,7 +36,7 @@ class NoteRepository
         return $this->note->create($dataRequest);
     }
 
-    public function updateNote($id, $dataRequest)
+    public function updateNote($id, array $dataRequest)
     {
         $data = $this->getNoteById($id);
         return $data->update($dataRequest);

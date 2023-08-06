@@ -137,7 +137,7 @@ class NoteController extends Controller
 
     public function updateNote(Request $request, $id)
     {
-        $rules = [
+        $validateData = $request->validate([
             'location' => 'required',
             'date' => 'required',
             'no_container' => 'required',
@@ -146,30 +146,9 @@ class NoteController extends Controller
             'no_truck' => 'required',
             'driver' => 'required',
             'telp' => 'required',
-        ];
+        ]);
 
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 401,
-                'error' => 'Validation failed',
-                'messages' => $validator->errors(),
-            ], 401);
-        }
-
-        $dataRequest = [
-            'location' => $request->input('location'),
-            'date' => $request->input('date'),
-            'no_container' => $request->input('no_container'),
-            'no_seal' => $request->input('no_seal'),
-            'destination' => $request->input('destination'),
-            'no_truck' => $request->input('no_truck'),
-            'driver' => $request->input('driver'),
-            'telp' => $request->input('telp'),
-        ];
-
-        $note = $this->noteService->updateNote($id, $dataRequest);
+        $note = $this->noteService->updateNote($id, $request);
 
         if ($note === null) {
             $response = [

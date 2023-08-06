@@ -100,25 +100,11 @@ class BarangController extends Controller
 
     public function updateBarang(Request $request, $id)
     {
-        $rules = [
-            'jenis_barang' => 'required|string'
-        ];
+        $validateData = $request->validate([
+            'jenis_barang' => 'required'
+        ]);
 
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 401,
-                'error' => 'Validation failed',
-                'messages' => $validator->errors(),
-            ], 401);
-        }
-
-        $dataRequest = [
-            'jenis_barang' => $request->input('jenis_barang'),
-        ];
-
-        $barang = $this->barangService->updateBarang($id, $dataRequest);
+        $barang = $this->barangService->updateBarang($id, $request);
 
         if ($barang === null) {
             $response = [

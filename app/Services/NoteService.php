@@ -36,8 +36,19 @@ class NoteService
         return $this->noteRepository->createNote($dataRequest);
     }
 
-    public function updateNote($id, $dataRequest)
+    public function updateNote($id, $request)
     {
+        $dataRequest = [
+            'location' => $request->location,
+            'date' => $request->date,
+            'no_container' => $request->no_container,
+            'no_seal' => $request->no_seal,
+            'destination' => $request->destination,
+            'no_truck' => $request->no_truck,
+            'driver' => $request->driver,
+            'telp' => $request->telp,
+        ];
+
         return $this->noteRepository->updateNote($id, $dataRequest);
     }
 
