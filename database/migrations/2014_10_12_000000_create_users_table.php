@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('telp');
+            $table->string('alamat');
             $table->bigInteger('nik', false, true)->length(17);
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('email')->unique();

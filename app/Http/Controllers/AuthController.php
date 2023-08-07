@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use DateTimeZone;
 use DateTime;
-// use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmailVerification;
 
 class AuthController extends Controller
 {
@@ -38,7 +39,8 @@ class AuthController extends Controller
             'nik' => 'required',
             'telp' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required'
+            'password' => 'required',
+            'alamat' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -50,10 +52,12 @@ class AuthController extends Controller
             'nik' => request('nik'),
             'telp' => request('telp'),
             'email' => request('email'),
+            'alamat' => request('alamat'),
             'password' => bcrypt(request('password')),
         ]);
 
         if ($user) {
+            // Mail::to($user->email)->send(new EmailVerification($user));
             return response()->json(['message' => 'Registration successful']);
         } else {
             return response()->json(['message' => 'Registration failed'], 500);
@@ -149,6 +153,4 @@ class AuthController extends Controller
             'message' => 'data not found'
         ]);
     }
-    
-
 }

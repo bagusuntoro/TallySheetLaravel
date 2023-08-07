@@ -16,11 +16,10 @@ class CreateSignaturesTable extends Migration
         Schema::create('signatures', function (Blueprint $table) {
             $table->id();
             $table->string('petugas');
-            $table->text('petugas_signature');
+            $table->mediumText('petugas_signature');
             $table->string('supir');
-            $table->text('supir_signature');
-            $table->unsignedBigInteger('id_note');
-            $table->foreign('id_note')->references('id')->on('notes');
+            $table->mediumText('supir_signature');
+            $table->foreignId('id_note')->constrained('notes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

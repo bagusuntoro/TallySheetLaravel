@@ -22,6 +22,9 @@ class Note extends Model
         'telp',
         'user_id'
     ];
+    protected $casts = [
+        'date' => 'datetime:d-m-Y',
+    ];
 
     // Relationships
     public function signatures()

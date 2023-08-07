@@ -31,19 +31,27 @@ class BarangRepository
         return false;
     }
 
-    public function updateBarang($id, $dataRequest)
+    public function updateBarang(array $dataRequest, $id)
     {
-        $data = $this->barang->find($id);
+        $data = $this->getBarangById($id);
         return $data->update($dataRequest);
     }
 
     public function deleteBarang($id)
     {
-        $data = $this->getBarangById($id);
-        if ($data) {
-            $data->delete($id);
-            return true;
-        }
-        return false;
+        $barang = $this->getBarangById($id);
+        $barang->delete();
+        return 'ok';
     }
+
+        
+
+
+        // $data = $this->getBarangById($id);
+        // if ($data) {
+        //     $data->delete($id);
+        //     return true;
+        // }
+        // return false;
+    // }
 }

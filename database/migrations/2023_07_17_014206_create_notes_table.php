@@ -16,15 +16,14 @@ class CreateNotesTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->string('location');
-            $table->date('date');
+            $table->date('date')->format('d/m/Y');
             $table->string('no_container');
             $table->string('no_seal');
             $table->string('destination');
             $table->string('no_truck');
             $table->string('driver');
             $table->string('telp');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
