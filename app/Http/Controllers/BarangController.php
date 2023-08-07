@@ -2,100 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\BarangService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Helpers\FormatApi;
+use App\Services\BarangService;
+use App\Services\NoteService;
 
 class BarangController extends Controller
 {
     private $barangService;
+    private $noteService;
 
-    public function __construct(BarangService $barangService)
+    public function __construct(BarangService $barangService, NoteService $noteService)
     {
         $this->barangService = $barangService;
+        $this->noteService = $noteService;
     }
 
     public function listBarang()
     {
-        $response = [
-            'status' => 200,
-            'error' => null,
-            'messages' => [
-                'success' => 'get data success'
-            ],
-            'data' => $this->barangService->listBarang()
-        ];
-
-        return response()->json($response);
+        return $this->formatApiResponse($this->barangService->listBarang(), 200);
     }
 
     public function getBarangById($id)
     {
-        $barang = $this->barangService->getBarangById($id);
-
-        if ($barang === null) {
-            $response = [
-                'status' => 404,
-                'error' => 'Not found',
-                'messages' => [
-                    'error' => 'Data not found'
-                ],
-                'data' => null
-            ];
-        } else {
-            $response = [
-                'status' => 200,
-                'error' => null,
-                'messages' => [
-                    'success' => 'Data found'
-                ],
-                'data' => $barang
-            ];
-        }
-
-        return response()->json($response);
+        return $this->formatApiResponse($this->barangService->getBarangById($id), 200);
     }
 
     public function createBarang(Request $request)
     {
-        $rules = [
+        $validatedData = $request->validate([
             'jenis_barang' => 'required|string'
-        ];
+        ]);
 
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 401,
-                'error' => 'Validation failed',
-                'messages' => $validator->errors(),
-            ], 401);
-        }
-
-        $dataRequest = [
-            'jenis_barang' => $request->input('jenis_barang'),
-        ];
-
-        $dataResponse = $this->barangService->createBarang($dataRequest);
-
-        if ($dataResponse) {
-            $response = [
-                'status' => 201,
-                'error' => null,
-                'messages' => [
-                    'success' => 'data inserted'
-                ]
-            ];
-
-            return response()->json($response, 201);
-        }
-
-        $response = [
-            'status' => 401,
-            'error' => 'failed',
-        ];
-
-        return response()->json($response, 401);
+        return $this->formatApiResponse($this->barangService->createBarang($validatedData), 201);
     }
 
     public function updateBarang(Request $request, $id)
@@ -104,55 +43,20 @@ class BarangController extends Controller
             'jenis_barang' => 'required'
         ]);
 
-        $barang = $this->barangService->updateBarang($id, $request);
-
-        if ($barang === null) {
-            $response = [
-                'status' => 404,
-                'error' => 'Not found',
-                'messages' => [
-                    'error' => 'Data not found'
-                ],
-                'data' => null
-            ];
-        } else {
-            $response = [
-                'status' => 200,
-                'error' => null,
-                'messages' => [
-                    'success' => 'Data updated successfully'
-                ],
-                'data' => $barang
-            ];
-        }
-
-        return response()->json($response);
+        return $this->formatApiResponse($this->barangService->updateBarang($validateData, $id), 200);
     }
 
     public function deleteBarang($id)
     {
-        $result = $this->barangService->deleteBarang($id);
-
-        if ($result === false) {
-            $response = [
-                'status' => 404,
-                'error' => 'Not found',
-                'messages' => [
-                    'error' => 'Data not found'
-                ],
-                'data' => null
-            ];
+        return $this->formatApiResponse($this->barangService->deleteBarang($id), 200);
+    }
+    // format api dengan dinamis data dan status code
+    public function formatApiResponse($data, $statusCode)
+    {
+        if ($data) {
+            return FormatApi::ApiCreate($statusCode, 'Success', $data);
         } else {
-            $response = [
-                'status' => 200,
-                'error' => null,
-                'messages' => [
-                    'success' => 'Data deleted successfully'
-                ],
-                'data' => null
-            ];
+            return FormatApi::ApiCreate(400, 'Gagal');
         }
-
-        return response()->json($response);
     }
 }

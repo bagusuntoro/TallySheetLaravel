@@ -26,12 +26,9 @@ class BarangService
         return $this->barangRepository->createBarang($dataRequest);
     }
 
-    public function updateBarang($id, $dataRequest)
+    public function updateBarang($dataRequest, $id)
     {
-        $data = [
-            'jenis_barang' => $dataRequest->jenis_barang
-        ];
-        return $this->barangRepository->updateBarang($id, $data);
+        return $this->barangRepository->updateBarang($dataRequest, $id);
     }
 
     public function deleteBarang($id)

@@ -19,8 +19,7 @@ class CreateSignaturesTable extends Migration
             $table->mediumText('petugas_signature');
             $table->string('supir');
             $table->mediumText('supir_signature');
-            $table->unsignedBigInteger('id_note');
-            $table->foreign('id_note')->references('id')->on('notes');
+            $table->foreignId('id_note')->constrained('notes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

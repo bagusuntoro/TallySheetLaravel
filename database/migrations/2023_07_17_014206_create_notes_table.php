@@ -23,8 +23,7 @@ class CreateNotesTable extends Migration
             $table->string('no_truck');
             $table->string('driver');
             $table->string('telp');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

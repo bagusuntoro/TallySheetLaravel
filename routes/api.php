@@ -25,7 +25,18 @@ Route::group([
       Route::group([
         'middleware' => 'auth:api'
       ], function () {
+        
+        // Routes for TumpukanController
+        
+        Route::get('tumpukan', [TumpukanController::class, 'listTumpukan']);
+        Route::post('tumpukan', [TumpukanController::class, 'createTumpukan']);
+        
+        // Routes for SignatureController
+        Route::get('signatures', [SignatureController::class, 'listSignature']);
+        Route::post('signatures', [SignatureController::class, 'signatureNote']);
+      
         // Routes for NoteController
+        Route::get('note-detail/{id}', [NoteController::class, 'detailNote']);
         Route::get('notes-user/{id}', [NoteController::class, 'listNoteByUser']);
         Route::get('notes', [NoteController::class, 'listNotes']);
         Route::get('notes/{id}', [NoteController::class, 'getNoteById']);
@@ -34,22 +45,17 @@ Route::group([
         Route::put('notes/{id}', [NoteController::class, 'updateNote']);
         Route::delete('notes/{id}', [NoteController::class, 'deleteNote']);
         
-        // Routes for TumpukanController
-        Route::get('tumpukan', [TumpukanController::class, 'listTumpukan']);
-        Route::post('tumpukan', [TumpukanController::class, 'createTumpukan']);
         
+      
         // Routes for BarangController
         Route::get('barang', [BarangController::class, 'listBarang']);
         Route::get('barang/{id}', [BarangController::class, 'getBarangById']);
         Route::post('barang', [BarangController::class, 'createBarang']);
         Route::put('barang/{id}', [BarangController::class, 'updateBarang']);
         Route::delete('barang/{id}', [BarangController::class, 'deleteBarang']);
-
         
         
-        // Routes for SignatureController
-        Route::get('signatures', [SignatureController::class, 'listSignature']);
-        Route::post('signatures', [SignatureController::class, 'signatureNote']);
+        
         
         
         // list user
@@ -59,4 +65,5 @@ Route::group([
       
     });
   });
-  Route::get('note-detail/{id}', [NoteController::class, 'detailNote']);
+
+  

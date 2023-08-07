@@ -31,36 +31,17 @@ class BarangRepository
         return false;
     }
 
-    public function updateBarang($id, array $dataRequest)
+    public function updateBarang(array $dataRequest, $id)
     {
-        $data = $this->barang->find($id);
+        $data = $this->getBarangById($id);
         return $data->update($dataRequest);
     }
 
     public function deleteBarang($id)
     {
-        $barang = $this->barang->find($id);
-
-        if (!$barang) {
-            throw new \Exception('Data Barang tidak ditemukan');
-        }
-
-        try {
-            \DB::beginTransaction();
-
-            // Hapus data tumpukan terkait (jika ada)
-            $barang->tumpukans()->delete();
-
-            // Hapus data Barang
-            $barang->delete();
-
-            \DB::commit();
-
-            return true; // Jika berhasil dihapus
-        } catch (\Exception $e) {
-            \DB::rollback();
-            throw new \Exception('Terjadi kesalahan saat menghapus data Barang');
-        }
+        $barang = $this->getBarangById($id);
+        $barang->delete();
+        return 'ok';
     }
 
         
