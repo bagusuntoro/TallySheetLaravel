@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\FormatApi;
 use App\Services\BarangService;
-use App\Services\NoteService;
 
 class BarangController extends Controller
 {

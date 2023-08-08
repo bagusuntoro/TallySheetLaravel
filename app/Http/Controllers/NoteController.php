@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Helpers\FormatApi;
 use App\Services\NoteService;
 use App\Http\Controllers\BarangController;
 

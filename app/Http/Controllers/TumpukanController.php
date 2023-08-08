@@ -40,39 +40,6 @@ class TumpukanController extends Controller
                 'messages' => 'Invalid JSON data provided.'
             ], 400);
         }
-
-        $successCount = 0;
-        $failedCount = 0;
-
-        foreach ($dataRequest as $tumpukanData) {
-            $dataResponse = $this->tumpukanService->createTumpukan($tumpukanData);
-
-            if ($dataResponse) {
-                $successCount++;
-            } else {
-                $failedCount++;
-            }
-        }
-
-        if ($successCount > 0) {
-            $response = [
-                'status' => 201,
-                'error' => null,
-                'messages' => [
-                    'success' => $successCount . ' data inserted successfully'
-                ]
-            ];
-
-            return response()->json($response, 201);
-        }
-
-        $response = [
-            'status' => 401,
-            'error' => 'Failed',
-            'messages' => [
-                'error' => $failedCount . ' data failed to insert'
-            ]
-        ];
-        return response()->json($response, 401);
+        return $this->tumpukanService->createTumpukan($dataRequest);
     }
 }
