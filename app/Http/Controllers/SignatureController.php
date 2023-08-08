@@ -4,20 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Services\SignatureService;
 use Illuminate\Http\Request;
-use App\Helpers\FormatApi;
+use App\Http\Controllers\BarangController;
 
 class SignatureController extends Controller
 {
     private $signatureService;
+    private $barangController;
 
-    public function __construct(SignatureService $signatureService)
+    public function __construct(SignatureService $signatureService, BarangController $barangController)
     {
         $this->signatureService = $signatureService;
+        $this->barangController = $barangController;
     }
 
     public function listSignature()
     {
-        return $this->formatApiResponse($this->signatureService->listSignature(), 200);
+        return $this->barangController->formatApiResponse($this->signatureService->listSignature(), 200);
     }
 
     public function signatureNote(Request $request)
@@ -29,16 +31,7 @@ class SignatureController extends Controller
             'supir_signature' => 'required|string',
             'id_note' => 'required|numeric'
         ]);
-        return $this->formatApiResponse($this->signatureService->signatureNote($validatedData), 200);
-    }
-
-    private function formatApiResponse($data, $statusCode)
-    {
-        if ($data) {
-            return FormatApi::ApiCreate($statusCode, 'Success', $data);
-        } else {
-            return FormatApi::ApiCreate(400, 'Gagal');
-        }
+        return $this->barangController->formatApiResponse($this->signatureService->signatureNote($validatedData), 200);
     }
 }
 
