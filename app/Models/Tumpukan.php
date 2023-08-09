@@ -24,7 +24,8 @@ class Tumpukan extends Model
         'tumpukan_10',
         'total',
         'id_note',
-        'id_barang',
+        'barang',
+        'sppg'
     ];
 
     // Relationships
@@ -33,8 +34,8 @@ class Tumpukan extends Model
         return $this->belongsTo(Note::class, 'id_note');
     }
 
-    public function barang()
-    {
-        return $this->belongsTo(Barang::class, 'id_barang');
-    }
+    // public function barang()
+    // {
+    //     return $this->belongsTo(Barang::class, 'id_barang');
+    // }
 }

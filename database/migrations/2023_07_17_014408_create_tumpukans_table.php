@@ -26,8 +26,10 @@ class CreateTumpukansTable extends Migration
             $table->unsignedInteger('tumpukan_9')->nullable();
             $table->unsignedInteger('tumpukan_10')->nullable();
             $table->unsignedInteger('total')->nullable();
+            $table->string('barang');
+            $table->string('sppg');
             $table->foreignId('id_note')->constrained('notes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('id_barang')->constrained('barangs')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('id_barang')->constrained('barangs')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

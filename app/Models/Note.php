@@ -13,6 +13,8 @@ class Note extends Model
 
     protected $fillable = [
         'location',
+        'id_keterangan',
+        'keterangan',
         'date',
         'no_container',
         'no_seal',

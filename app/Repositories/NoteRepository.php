@@ -13,7 +13,7 @@ class NoteRepository
 
     public function detailNote($id)
     {
-        return $this->note->where('id', $id)->with('signatures', 'tumpukans.barang')->get();
+        return $this->note->where('id', $id)->with('signatures', 'tumpukans')->get();
     }
 
     public function listNotes()

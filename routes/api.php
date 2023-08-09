@@ -8,6 +8,8 @@ use App\Http\Controllers\NoteController;
 use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\TumpukanController;
 
+use App\Http\Controllers\ExternalAPI;
+
 
 Route::group([
     'prefix' => 'auth'
@@ -65,5 +67,8 @@ Route::group([
       
     });
   });
-
+  
+  Route::get('lokasi', [ExternalAPI::class, 'getDataLokasi']);
+  Route::get('keterangan', [ExternalAPI::class, 'getDataKeterangan']);
+  Route::post('sppg', [ExternalAPI::class, 'getDataSPPG']);
   

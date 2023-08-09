@@ -41,6 +41,8 @@ class NoteController extends Controller
     {
         $validatedData = $request->validate([
             'location' => 'required',
+            'id_keterangan' => 'required',
+            'keterangan' => 'required',
             'date' => 'required',
             'no_container' => 'required',
             'no_seal' => 'required',

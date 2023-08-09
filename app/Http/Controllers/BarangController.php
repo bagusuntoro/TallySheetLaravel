@@ -9,12 +9,10 @@ use App\Services\BarangService;
 class BarangController extends Controller
 {
     private $barangService;
-    private $noteService;
 
-    public function __construct(BarangService $barangService, NoteService $noteService)
+    public function __construct(BarangService $barangService)
     {
         $this->barangService = $barangService;
-        $this->noteService = $noteService;
     }
 
     public function listBarang()

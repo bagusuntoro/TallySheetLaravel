@@ -36,11 +36,12 @@ class AuthController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
+            'kodeLokasi' => 'required',
+            'namaLokasi' => 'required',
             'nik' => 'required',
             'telp' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'alamat' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -49,10 +50,11 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => request('name'),
+            'kodeLokasi' => request('kodeLokasi'),
+            'namaLokasi' => request('namaLokasi'),
             'nik' => request('nik'),
             'telp' => request('telp'),
             'email' => request('email'),
-            'alamat' => request('alamat'),
             'password' => bcrypt(request('password')),
         ]);
 

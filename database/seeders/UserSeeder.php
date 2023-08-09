@@ -17,10 +17,11 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'admin',
+            'kodeLokasi' => '0001',
+            'namaLokasi' => 'Kalianget',
             'nik' => '1',
             'telp' => '1',
             'role' => 'admin',
-            'alamat' => 'pusat',
             'email' => 'admin@test.com',
             'password' => Hash::make('12345'),
         ]);
